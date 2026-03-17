@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú | El Tamaño Sí Importa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --rojo: #E63946;
+            --amarillo: #FFC300;
+            --negro-fondo: #111111;
+            --negro-card: #1c1c1c;
+            --blanco: #FFFFFF;
+            --gris: #b3b3b3;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: var(--negro-fondo); color: var(--blanco); padding-bottom: 120px; scroll-behavior: smooth; }
+        
+        /* NAVBAR CORREGIDA: Logo vuelve a la principal */
+        nav { background: #000; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1001; border-bottom: 3px solid var(--rojo); }
+        .logo-link { display: block; transition: transform 0.2s; }
+        .logo-link:hover { transform: scale(1.05); }
+        .logo-link img { height: 55px; display: block; }
+        .btn-inicio { background: var(--rojo); color: white; text-decoration: none; padding: 8px 15px; border-radius: 5px; font-weight: bold; font-size: 0.8rem; }
+
+        /* Categorías */
+        .categorias-bar { 
+            background: #1a1a1a; display: flex; overflow-x: auto; padding: 15px; gap: 20px; 
+            position: sticky; top: 78px; z-index: 1000; scrollbar-width: none; border-bottom: 1px solid #333;
+        }
+        .cat-item { text-align: center; min-width: 95px; cursor: pointer; color: var(--gris); text-decoration: none; }
+        .cat-item i { font-size: 1.4rem; color: var(--rojo); display: block; margin-bottom: 5px; }
+        .cat-item span { font-size: 0.65rem; font-weight: bold; text-transform: uppercase; display: block; line-height: 1.2; }
+
+        .contenedor { max-width: 1000px; margin: 20px auto; padding: 0 15px; }
+        .seccion-titulo { margin: 40px 0 15px; font-size: 1.4rem; color: var(--amarillo); border-left: 5px solid var(--rojo); padding-left: 15px; text-transform: uppercase; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: var(--negro-card); border-radius: 15px; padding: 20px; border: 1px solid #333; display: flex; flex-direction: column; justify-content: space-between; }
+        .precio { color: var(--amarillo); font-weight: bold; font-size: 1.2rem; margin-bottom: 15px; display: block; }
+        .btn-add { background: var(--rojo); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; text-transform: uppercase; }
+
+        #cart-float { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: var(--rojo); color: white; padding: 15px 30px; border-radius: 50px; display: flex; align-items: center; gap: 15px; cursor: pointer; z-index: 1002; border: 2px solid var(--amarillo); box-shadow: 0 5px 20px rgba(0,0,0,0.5); }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
+        .modal-content { background: var(--negro-card); width: 90%; max-width: 450px; border-radius: 20px; padding: 25px; border: 1px solid var(--rojo); }
+        input, select { width: 100%; padding: 12px; background: #222; border: 1px solid var(--rojo); color: white; border-radius: 8px; margin-bottom: 15px; }
+        .btn-confirm { background: var(--rojo); color: white; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo-link">
+            <img src="logo.png" alt="Logo Regresar">
+        </a>
+        <a href="index.html" class="btn-inicio"><i class="fas fa-home"></i> INICIO</a>
+    </nav>
+
+    <div class="categorias-bar">
+        <a href="#promos" class="cat-item"><i class="fas fa-percentage"></i><span>Promociones</span></a>
+        <a href="#hamburguesas" class="cat-item"><i class="fas fa-hamburger"></i><span>Burgers</span></a>
+        <a href="#churrascos" class="cat-item"><i class="fas fa-bread-slice"></i><span>Churrascos</span></a>
+        <a href="#vienesas" class="cat-item"><i class="fas fa-hotdog"></i><span>Vienesas</span></a>
+        <a href="#as" class="cat-item"><i class="fas fa-grip-lines"></i><span>As</span></a>
+        <a href="#goliat" class="cat-item"><i class="fas fa-crown"></i><span>Goliat</span></a>
+        <a href="#picar" class="cat-item"><i class="fas fa-utensils"></i><span>Para Picar</span></a>
+        <a href="#veggie" class="cat-item"><i class="fas fa-leaf"></i><span>Carta Veggie</span></a>
+        <a href="#bebestibles" class="cat-item"><i class="fas fa-wine-glass-alt"></i><span>Bebestibles</span></a>
+        <a href="#junaeb" class="cat-item"><i class="fas fa-graduation-cap"></i><span>Menú JUNAEB</span></a>
+    </div>
+
+    <div class="contenedor">
+        <h2 id="promos" class="seccion-titulo">Promociones</h2>
+        <div class="grid">
+            <div class="card"><h3>2x Churrasco Italiano</h3><p>Carne, tomate, palta y mayo.</p><span class="precio">$7.490</span><button class="btn-add" onclick="abrirMayo('2x Churrasco Italiano', 7490)">Agregar</button></div>
+        </div>
+
+        <h2 id="hamburguesas" class="seccion-titulo">Hamburguesas</h2>
+        <div class="grid">
+            <div class="card"><h3>ETSI Burger</h3><p>Queso, tocino, lechuga, tomate y mayo.</p><span class="precio">$6.500</span><button class="btn-add" onclick="abrirMayo('ETSI Burger', 6500)">Agregar</button></div>
+        </div>
+
+        <h2 id="churrascos" class="seccion-titulo">Churrascos</h2>
+        <div class="grid">
+            <div class="card"><h3>Churrasco Italiano</h3><p>Lomo, tomate, palta y mayo.</p><span class="precio">$4.500</span><button class="btn-add" onclick="abrirMayo('Churrasco Italiano', 4500)">Agregar</button></div>
+        </div>
+
+        <h2 id="vienesas" class="seccion-titulo">Vienesas</h2>
+        <div class="grid">
+            <div class="card"><h3>Vienesa Italiana</h3><p>Tomate, palta y mayo.</p><span class="precio">$3.200</span><button class="btn-add" onclick="abrirMayo('Vienesa Italiana', 3200)">Agregar</button></div>
+        </div>
+
+        <h2 id="as" class="seccion-titulo">As</h2>
+        <div class="grid">
+            <div class="card"><h3>As Italiano</h3><p>Carne picada, tomate, palta y mayo.</p><span class="precio">$3.500</span><button class="btn-add" onclick="abrirMayo('As Italiano', 3500)">Agregar</button></div>
+        </div>
+
+        <h2 id="goliat" class="seccion-titulo">Goliat</h2>
+        <div class="grid">
+            <div class="card"><h3>Sándwich Goliat</h3><p>Triple carne, queso y huevo.</p><span class="precio">$9.990</span><button class="btn-add" onclick="abrirMayo('Sándwich Goliat', 9990)">Agregar</button></div>
+        </div>
+
+        <h2 id="picar" class="seccion-titulo">Para Picar</h2>
+        <div class="grid">
+            <div class="card"><h3>Papas Fritas XL</h3><p>Porción familiar de papas fritas.</p><span class="precio">$4.000</span><button class="btn-add" onclick="agregarDirecto('Papas XL', 4000)">Agregar</button></div>
+        </div>
+
+        <h2 id="veggie" class="seccion-titulo">Carta Veggie</h2>
+        <div class="grid">
+            <div class="card"><h3>Burger de Lentejas</h3><p>Vegetal, tomate, palta y mayo.</p><span class="precio">$5.200</span><button class="btn-add" onclick="abrirMayo('Burger Lentejas', 5200)">Agregar</button></div>
+        </div>
+
+        <h2 id="bebestibles" class="seccion-titulo">Bebestibles</h2>
+        <div class="grid">
+            <div class="card"><h3>Bebida Lata</h3><p>Coca, Fanta o Sprite 350ml.</p><span class="precio">$1.200</span><button class="btn-add" onclick="agregarDirecto('Bebida Lata', 1200)">Agregar</button></div>
+        </div>
+
+        <h2 id="junaeb" class="seccion-titulo">Menú JUNAEB</h2>
+        <div class="grid">
+            <div class="card"><h3>Promo JUNAEB</h3><p>Válido solo con tarjeta Pluxee.</p><span class="precio">$4.500</span><button class="btn-add" onclick="abrirMayo('Menú JUNAEB', 4500)">Agregar</button></div>
+        </div>
+    </div>
+
+    <div id="cart-float" onclick="abrirCarrito()">
+        <i class="fas fa-shopping-cart"></i>
+        <span><span id="cart-count">0</span> productos</span>
+        <span>$ <span id="cart-total">0</span></span>
+    </div>
+
+    <div id="modal-mayo" class="modal">
+        <div class="modal-content">
+            <h2 id="mayo-nombre" style="color:var(--amarillo)"></h2><br>
+            <label>Elige tu mayonesa:</label>
+            <select id="select-mayo">
+                <option value="Casera">Mayonesa Casera</option>
+                <option value="Envasada">Mayonesa Envasada</option>
+                <option value="Sin Mayo">Sin Mayonesa</option>
+            </select>
+            <button class="btn-confirm" onclick="confirmarAgregar()">AÑADIR</button>
+        </div>
+    </div>
+
+    <div id="modal-carrito" class="modal">
+        <div class="modal-content">
+            <h2 style="color:var(--amarillo)">Tu Pedido</h2>
+            <div id="lista-carrito" style="margin: 15px 0; max-height: 180px; overflow-y: auto;"></div>
+            <input type="text" id="cliente-nombre" placeholder="Nombre para el retiro">
+            <select id="metodo-pago">
+                <option value="Efectivo">Efectivo</option>
+                <option value="Debito/Credito">Debito o Credito</option>
+                <option value="Transferencia">Transferencia</option>
+                <option value="Pluxee/JUNAEB">Pluxee (JUNAEB)</option>
+            </select>
+            <button class="btn-confirm" style="background:#25D366" onclick="enviarWhatsApp()">PEDIR POR WHATSAPP</button>
+            <button onclick="cerrarCarrito()" style="background:none; color:white; border:none; width:100%; margin-top:10px;">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        let carrito = [];
+        let temp = null;
+
+        function abrirMayo(n, p) {
+            temp = { n, p };
+            document.getElementById('mayo-nombre').innerText = n;
+            document.getElementById('modal-mayo').style.display = 'flex';
+        }
+
+        function agregarDirecto(n, p) {
+            carrito.push({ n, p, m: 'N/A' });
+            actualizar();
+        }
+
+        function confirmarAgregar() {
+            const m = document.getElementById('select-mayo').value;
+            carrito.push({ n: temp.n, p: temp.p, m: m });
+            document.getElementById('modal-mayo').style.display = 'none';
+            actualizar();
+        }
+
+        function actualizar() {
+            const t = carrito.reduce((s, i) => s + i.p, 0);
+            document.getElementById('cart-count').innerText = carrito.length;
+            document.getElementById('cart-total').innerText = t.toLocaleString('es-CL');
+        }
+
+        function abrirCarrito() {
+            const l = document.getElementById('lista-carrito');
+            l.innerHTML = '';
+            carrito.forEach(i => {
+                l.innerHTML += `<div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                    <span>${i.n} (${i.m})</span><span>$${i.p.toLocaleString('es-CL')}</span>
+                </div>`;
+            });
+            document.getElementById('modal-carrito').style.display = 'flex';
+        }
+
+        function cerrarCarrito() { document.getElementById('modal-carrito').style.display = 'none'; }
+
+        function enviarWhatsApp() {
+            const nom = document.getElementById('cliente-nombre').value;
+            if(!nom) return alert("Por favor, ingresa tu nombre para el retiro");
+            if(carrito.length === 0) return alert("Tu carrito está vacío");
+
+            const pago = document.getElementById('metodo-pago').value;
+            
+            // --- LÓGICA DE AGRUPACIÓN ---
+            const carritoAgrupado = {};
+            
+            carrito.forEach(item => {
+                // Creamos una clave única que combine nombre y mayonesa
+                const clave = `${item.n}|${item.m}`;
+                if (carritoAgrupado[clave]) {
+                    carritoAgrupado[clave].cantidad += 1;
+                    carritoAgrupado[clave].subtotal += item.p;
+                } else {
+                    carritoAgrupado[clave] = {
+                        nombre: item.n,
+                        mayo: item.m,
+                        precioUnitario: item.p,
+                        cantidad: 1,
+                        subtotal: item.p
+                    };
+                }
+            });
+
+            // --- CONSTRUCCIÓN DEL MENSAJE ---
+            let msg = `*🍔 NUEVO PEDIDO PARA RETIRO 🍔*%0A`;
+            msg += `------------------------------------%0A`;
+            msg += `*Cliente:* ${nom}%0A`;
+            msg += `*Método de Pago:* ${pago}%0A`;
+            msg += `------------------------------------%0A%0A`;
+            msg += `*DETALLE DEL PEDIDO:*%0A`;
+            
+            for (const key in carritoAgrupado) {
+                const item = carritoAgrupado[key];
+                const infoMayo = item.mayo !== 'N/A' ? ` (Mayo: *${item.mayo}*)` : '';
+                msg += `✅ ${item.cantidad}x ${item.nombre}${infoMayo} - *$${item.subtotal.toLocaleString('es-CL')}*%0A`;
+            }
+            
+            const total = carrito.reduce((s, i) => s + i.p, 0);
+            
+            msg += `%0A------------------------------------%0A`;
+            msg += `*TOTAL A PAGAR:* $${total.toLocaleString('es-CL')}%0A`;
+            msg += `------------------------------------%0A`;
+            msg += `_Pedido realizado desde la web_`;
+
+            const miNumero = "56989217783"; // No olvides poner tu número aquí
+            window.open(`https://wa.me/${miNumero}?text=${msg}`, '_blank');
+        }
+    </script>
+</body>
+</html>

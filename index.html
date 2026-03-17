@@ -1,0 +1,165 @@
+index.html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Tamaño Sí Importa | Inicio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 🎨 PALETA DE COLORES PRINCIPAL */
+        :root {
+            --rojo: #E63946;
+            --amarillo: #FFC300;
+            --negro-fondo: #111111;
+            --negro-secundario: #1c1c1c;
+            --blanco: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+        body {
+            background-color: var(--negro-fondo);
+            color: var(--blanco);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        /* LOGO PRINCIPAL */
+        .logo-container {
+            margin-bottom: 30px;
+            animation: fadeIn 1.5s ease;
+        }
+        .logo-container img {
+            width: 180px; /* Ajusta según el tamaño de tu logo.png */
+            filter: drop-shadow(0 0 10px var(--rojo));
+        }
+
+        /* TEXTO DE BIENVENIDA */
+        h1 {
+            font-size: 2.2rem;
+            color: var(--blanco);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        h1 span {
+            color: var(--amarillo);
+        }
+        p {
+            color: #b3b3b3;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        /* BOTONES DE ACCIÓN */
+        .btn-principal {
+            background-color: var(--rojo);
+            color: white;
+            text-decoration: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 20px rgba(230, 57, 70, 0.4);
+            border: 2px solid transparent;
+        }
+
+        .btn-principal:hover {
+            transform: scale(1.05);
+            background-color: #b92e3a;
+            border-color: var(--amarillo);
+        }
+
+        /* REDES SOCIALES O CONTACTO */
+        .social-links {
+            margin-top: 50px;
+            display: flex;
+            gap: 20px;
+        }
+        .social-links a {
+            color: var(--blanco);
+            font-size: 1.5rem;
+            transition: 0.3s;
+        }
+        .social-links a:hover {
+            color: var(--amarillo);
+        }
+
+        /* ANIMACIÓN */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* DECORACIÓN DE FONDO */
+        .overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(230,57,70,0.05) 0%, rgba(17,17,17,1) 80%);
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="logo-container">
+        <img src="logo.png" alt="Logo El Tamaño Sí Importa">
+    </div>
+
+    <h1>BIENVENIDO A <br><span>EL TAMAÑO SÍ IMPORTA</span></h1>
+    <p>¿Listo para calmar el hambre?</p>
+
+<div style="background: var(--negro-secundario); padding: 20px; border-radius: 15px; border: 1px solid var(--rojo); margin: 20px auto 40px; max-width: 400px; animation: fadeIn 2s ease;">
+    <h3 style="color: var(--amarillo); font-size: 1rem; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 1px;">
+        <i class="far fa-clock"></i> Horarios de Atención
+    </h3>
+    
+    <div style="text-align: left; font-size: 0.9rem; line-height: 1.6;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 5px; border-bottom: 1px solid #333; padding-bottom: 5px;">
+            <span><i class="fas fa-calendar-day" style="color: var(--rojo);"></i> Lun - Jue:</span>
+            <span style="font-weight: bold;">10:30 a 01:00</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 5px; border-bottom: 1px solid #333; padding-bottom: 5px;">
+            <span><i class="fas fa-star" style="color: var(--amarillo);"></i> Vie, Sáb y Vísperas:</span>
+            <span style="font-weight: bold;">10:30 a 02:00</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+            <span><i class="fas fa-sun" style="color: var(--rojo);"></i> Domingo:</span>
+            <span style="font-weight: bold;">17:00 a 01:00</span>
+        </div>
+    </div>
+</div>
+
+    <a href="menu.html" class="btn-principal">
+        <i class="fas fa-utensils"></i> VER MENÚ COMPLETO
+    </a>
+
+<div class="social-links">
+        <a href="https://www.instagram.com/el_tamano_penaflor/" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+
+        <a href="https://wa.me/569XXXXXXXX" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+
+        <a href="https://www.google.com/maps/place/El+tamaño+si+importa/@-33.606888,-70.8774968,17z/data=!3m1!4b1!4m6!3m5!1s0x9662e6cc30d4ff1b:0x41770156e7142ef!8m2!3d-33.606888!4d-70.8749165!16s%2Fg%2F11clhqkw5g?entry=ttu&g_ep=EgoyMDI2MDMxMS4wIKXMDSoASAFQAw%3D%3D" target="_blank">
+            <i class="fas fa-map-marker-alt"></i>
+        </a>
+    </div>
+
+</body>
+</html> 
